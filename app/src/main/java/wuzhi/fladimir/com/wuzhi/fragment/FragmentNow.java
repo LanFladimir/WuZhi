@@ -1,22 +1,18 @@
 package wuzhi.fladimir.com.wuzhi.fragment;
 
+import android.annotation.SuppressLint;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
 import wuzhi.fladimir.com.wuzhi.R;
-import wuzhi.fladimir.com.wuzhi.model.database.MySqliteHelper;
-import wuzhi.fladimir.com.wuzhi.model.entity.Follow;
+import wuzhi.fladimir.com.wuzhi.model.adapter.NowAdapter;
 import wuzhi.fladimir.com.wuzhi.model.entity.Now;
 import wuzhi.fladimir.com.wuzhi.util.Jsouper;
-import wuzhi.fladimir.com.wuzhi.util.Logger;
 
 /**
  * Created by Sc_Ji on 2018-01-02.
@@ -26,6 +22,16 @@ import wuzhi.fladimir.com.wuzhi.util.Logger;
 public class FragmentNow extends BaseFragment {
     private RecyclerView frg_now_recycler;
     private ArrayList<Now> mNow = new ArrayList<>();
+    private NowAdapter mAdapter;
+    @SuppressLint("HandlerLeak")
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            Toast.makeText(mContext, "更新列表!", Toast.LENGTH_LONG).show();
+            mAdapter.notify(mNow);
+        }
+    };
 
     @Override
     protected int setRootView() {
@@ -35,18 +41,19 @@ public class FragmentNow extends BaseFragment {
     @Override
     protected void initView() {
         frg_now_recycler = mRootView.findViewById(R.id.frg_now_recycler);
-        frg_now_recycler.setLayoutManager(new LinearLayoutManager(mContext));
     }
 
     @Override
     protected void initData() {
+        mAdapter = new NowAdapter(mNow, mContext);
+        frg_now_recycler.setLayoutManager(new LinearLayoutManager(mContext));
+        frg_now_recycler.setAdapter(mAdapter);
         new Thread(new Runnable() {
             @Override
             public void run() {
                 mNow = Jsouper.getLastDiary();
-
+                mHandler.sendEmptyMessageDelayed(0, 1000 * 3);
             }
         }).start();
-        //mNow = Jsouper.getLastDiary();
     }
 }

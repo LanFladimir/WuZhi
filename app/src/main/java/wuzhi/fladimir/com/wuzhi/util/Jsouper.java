@@ -32,7 +32,7 @@ public class Jsouper {
                     Now now = new Now();
                     Element img = td.getElementsByTag("span").get(0).getElementsByTag("img").get(0);
                     now.setUserImg(img.attr("src"));
-                    now.setUserImg(img.attr("alt"));
+                    now.setUserName(img.attr("alt"));
                     mNows.add(now);
                 }
 
