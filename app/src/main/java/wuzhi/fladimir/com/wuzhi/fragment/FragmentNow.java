@@ -52,6 +52,9 @@ public class FragmentNow extends BaseFragment {
             @Override
             public void run() {
                 mNow = Jsouper.getLastDiary();
+                /*for (int i = 0; i < mNow.size(); i++) {
+                    mNow.set(i, Jsouper.getCompleteNovel(mNow.get(i).getUserId()));
+                }*/
                 mHandler.sendEmptyMessageDelayed(0, 1000 * 3);
             }
         }).start();

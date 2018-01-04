@@ -1,6 +1,7 @@
 package wuzhi.fladimir.com.wuzhi.model.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import java.util.ArrayList;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
+import wuzhi.fladimir.com.wuzhi.NovelActivity;
 import wuzhi.fladimir.com.wuzhi.R;
 import wuzhi.fladimir.com.wuzhi.model.entity.Now;
 
@@ -46,13 +48,21 @@ public class NowAdapter extends RecyclerView.Adapter<NowAdapter.nowHolder> {
 
     @Override
     public void onBindViewHolder(nowHolder holder, int position) {
-        Now item = mNows.get(position);
+        final Now item = mNows.get(position);
 
         holder.item_now_name.setText(item.getUserName());
         Glide.with(mContext).load(item.getUserImg()).into(holder.item_now_img);
         Glide.with(mContext).load(item.getUserImg())
                 .apply(bitmapTransform(new BlurTransformation(25)))
                 .into(holder.item_now_bg);
+        holder.item_now_bg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, NovelActivity.class);
+                intent.putExtra("id", item.getUserId());
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override

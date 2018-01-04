@@ -1,14 +1,18 @@
 package wuzhi.fladimir.com.wuzhi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextMenu;
+import android.view.View;
 
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 
 import java.util.ArrayList;
 
@@ -30,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
         mContext = MainActivity.this;
 
         mTopBar = findViewById(R.id.main_topbar);
+        mTopBar.addRightImageButton(R.mipmap.icon_topbar_overflow, R.id.main_topbar)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showBottomSheetList();
+                    }
+                });
         mTopBar.setTitle("吾志");
         mTopBar.setBackgroundColor(ContextCompat.getColor(mContext, R.color.app_color_blue));
         mTabSegment = findViewById(R.id.main_segment);
@@ -66,5 +77,27 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void showBottomSheetList() {
+        new QMUIBottomSheet.BottomListSheetBuilder(mContext)
+                .addItem("Login")
+                .setOnSheetItemClickListener(new QMUIBottomSheet.
+                        BottomListSheetBuilder.OnSheetItemClickListener() {
+                    @Override
+                    public void onClick(QMUIBottomSheet dialog, View itemView,
+                                        int position, String tag) {
+                        dialog.dismiss();
+                        switch (position) {
+                            case 0:
+                                startActivity(new Intent(mContext, LoginActivity.class));
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                })
+                .build()
+                .show();
     }
 }

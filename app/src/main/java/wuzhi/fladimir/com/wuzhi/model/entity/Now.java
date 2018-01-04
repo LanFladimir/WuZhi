@@ -1,25 +1,34 @@
 package wuzhi.fladimir.com.wuzhi.model.entity;
 
+import java.util.ArrayList;
+
 /**
  * Created by Sc_Ji on 2018-01-03.
  * 用户日记
  */
 
 public class Now {
-    private int userId;
+    private String userId;
     private String userName;
-    private String userDiary;
     private String userImg;
     private String userSign;
     private String date;
-    private String time;
     private String flowers;
+    private ArrayList<novels> novels;
 
-    public int getUserId() {
+    public ArrayList<Now.novels> getNovels() {
+        return novels;
+    }
+
+    public void setNovels(ArrayList<Now.novels> novels) {
+        this.novels = novels;
+    }
+
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -29,14 +38,6 @@ public class Now {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getUserDiary() {
-        return userDiary;
-    }
-
-    public void setUserDiary(String userDiary) {
-        this.userDiary = userDiary;
     }
 
     public String getUserImg() {
@@ -63,19 +64,32 @@ public class Now {
         this.date = date;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
     public String getFlowers() {
         return flowers;
     }
 
     public void setFlowers(String flowers) {
         this.flowers = flowers;
+    }
+
+    public static class novels {
+        String novelTime;
+        String novelContent;
+
+        public String getNovelTime() {
+            return novelTime;
+        }
+
+        public void setNovelTime(String novelTime) {
+            this.novelTime = novelTime;
+        }
+
+        public String getNovelContent() {
+            return novelContent;
+        }
+
+        public void setNovelContent(String novelContent) {
+            this.novelContent = novelContent;
+        }
     }
 }

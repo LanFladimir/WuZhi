@@ -37,4 +37,10 @@
         android:layout_height="wrap_content"
         android:onClick="Clear"
         android:text="Clear" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="getnovel"
+        android:text="读取日记" />
 </LinearLayout>
