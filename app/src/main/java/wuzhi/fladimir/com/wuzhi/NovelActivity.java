@@ -1,6 +1,7 @@
 package wuzhi.fladimir.com.wuzhi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +10,6 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.jsoup.Jsoup;
@@ -78,12 +78,39 @@ public class NovelActivity extends AppCompatActivity {
             Document novel = Jsoup.parse(html);
             Now now = null;
             try {
-                now = Jsouper.getCompleteNovel(id, html);
+                now = Jsouper.getCompleteNovel_Pc(id, html);
             } catch (Exception e) {
-                Logger.e("解析错误--->" + html);
+                Logger.e("PC方式,解析错误--->" + html);
                 e.printStackTrace();
+                Logger.e("尝试Android分析");
+                try {
+                    now = Jsouper.getCompleteNovel_Android(id, html);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                    Logger.e("Android方式,解析错误--->" + html);
+                    Logger.e("Web页面登陆后重试");
+                    showLoginActivity();
+                }
             }
             setUi(now);
+        }
+    }
+
+    /**
+     * 跳转至登陆页面
+     */
+    private void showLoginActivity() {
+        Toast.makeText(mContext, "获取日记详情,请登录!", Toast.LENGTH_SHORT).show();
+        Intent loginInt = new Intent(mContext, LoginActivity.class);
+        startActivityForResult(loginInt, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 1) {
+            Logger.e("登陆成功并返回!");
+            webview.reload();
         }
     }
 

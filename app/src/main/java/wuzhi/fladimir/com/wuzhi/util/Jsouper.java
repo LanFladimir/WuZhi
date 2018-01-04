@@ -48,11 +48,11 @@ public class Jsouper {
     }
 
     /**
-     * 获取内容
+     * 获取内容(电脑端)
      *
      * @return 255148
      */
-    public static Now getCompleteNovel(String userId, String html) throws Exception {
+    public static Now getCompleteNovel_Pc(String userId, String html) throws Exception {
         Now now = new Now();
         ArrayList<Now.novels> novelList = new ArrayList<>();
         Document doc = Jsoup.parse(html);
@@ -83,6 +83,43 @@ public class Jsouper {
         now.setFlowers(flower);
         now.setNovels(novelList);
         now.setUserSign(sign);
+        return now;
+    }
+
+    /**
+     * @param userId
+     * @param html
+     * @return
+     * @throws Exception
+     */
+    public static Now getCompleteNovel_Android(String userId, String html) throws Exception {
+        Now now = new Now();
+        ArrayList<Now.novels> novelList = new ArrayList<>();
+        Document doc = Jsoup.parse(html);
+
+        String userName = doc.getElementsByClass("img_shadow").get(0)
+                .getElementsByTag("img").get(0).attr("alt");
+        String userImg = doc.getElementsByClass("img_shadow").get(0)
+                .getElementsByTag("img").attr("src");
+        String userSign = doc.getElementsByClass("quote_text").text();
+        String date = doc.getElementsByClass("date_line").get(0)
+                .getElementsByTag("span").get(0).text();
+        String flower = doc.getElementsByClass("date_line").get(0)
+                .getElementsByTag("span").get(1).text();
+        Elements novels = doc.getElementsByClass("note_each");
+        for (Element each : novels) {
+            Now.novels novel = new Now.novels();
+            novel.setNovelTime(each.getElementsByClass("note_time").get(0).text());
+            novel.setNovelContent(each.getElementsByClass("note_content").get(0).text());
+            novelList.add(novel);
+        }
+        now.setUserName(userName);
+        now.setDate(date);
+        now.setFlowers(flower);
+        now.setNovels(novelList);
+        now.setUserId(userId);
+        now.setUserImg(userImg);
+        now.setUserSign(userSign);
         return now;
     }
 }
