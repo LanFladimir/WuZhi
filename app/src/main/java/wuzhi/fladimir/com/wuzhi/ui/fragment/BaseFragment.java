@@ -1,4 +1,4 @@
-package wuzhi.fladimir.com.wuzhi.fragment;
+package wuzhi.fladimir.com.wuzhi.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;

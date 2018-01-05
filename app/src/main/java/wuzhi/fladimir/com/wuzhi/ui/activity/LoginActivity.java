@@ -1,4 +1,4 @@
-package wuzhi.fladimir.com.wuzhi;
+package wuzhi.fladimir.com.wuzhi.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,6 +13,8 @@ import android.webkit.WebViewClient;
 
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
+
+import wuzhi.fladimir.com.wuzhi.R;
 
 /**
  * Created by Sc_Ji on 2018-01-04.

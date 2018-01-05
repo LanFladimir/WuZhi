@@ -15,7 +15,7 @@ import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import java.util.ArrayList;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
-import wuzhi.fladimir.com.wuzhi.NovelActivity;
+import wuzhi.fladimir.com.wuzhi.ui.activity.NovelActivity;
 import wuzhi.fladimir.com.wuzhi.R;
 import wuzhi.fladimir.com.wuzhi.model.entity.Now;
 

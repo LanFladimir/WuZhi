@@ -4,6 +4,7 @@
     <style name="AppTheme" parent="QMUI.Compat.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/app_color_blue</item>
+        <item name="android:textColor">@color/qmui_config_color_white</item>
     </style>
 
 </resources>

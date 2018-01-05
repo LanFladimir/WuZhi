@@ -1,4 +1,4 @@
-package wuzhi.fladimir.com.wuzhi;
+package wuzhi.fladimir.com.wuzhi.model.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Sc_Ji on 2018-01-02.
+ * Fragment adapter
  */
 
 public class PageAdapter extends FragmentPagerAdapter {

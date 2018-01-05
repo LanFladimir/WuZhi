@@ -1,4 +1,4 @@
-package wuzhi.fladimir.com.wuzhi.fragment;
+package wuzhi.fladimir.com.wuzhi.ui.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;

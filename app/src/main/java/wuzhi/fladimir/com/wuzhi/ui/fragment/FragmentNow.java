@@ -1,4 +1,4 @@
-package wuzhi.fladimir.com.wuzhi.fragment;
+package wuzhi.fladimir.com.wuzhi.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Handler;

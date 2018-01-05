@@ -1,4 +1,4 @@
-package wuzhi.fladimir.com.wuzhi;
+package wuzhi.fladimir.com.wuzhi.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.ContextMenu;
 import android.view.View;
 
 import com.qmuiteam.qmui.widget.QMUITabSegment;
@@ -16,8 +15,10 @@ import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 
 import java.util.ArrayList;
 
-import wuzhi.fladimir.com.wuzhi.fragment.FragmentNow;
-import wuzhi.fladimir.com.wuzhi.fragment.FragmentFollow;
+import wuzhi.fladimir.com.wuzhi.model.adapter.PageAdapter;
+import wuzhi.fladimir.com.wuzhi.R;
+import wuzhi.fladimir.com.wuzhi.ui.fragment.FragmentNow;
+import wuzhi.fladimir.com.wuzhi.ui.fragment.FragmentFollow;
 
 public class MainActivity extends AppCompatActivity {
     private Context mContext;
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
         mContentViewPager.setAdapter(mPagerAdapter);
         mContentViewPager.setCurrentItem(0, false);
+        mTabSegment.setHasIndicator(true);
+        mTabSegment.setIndicatorWidthAdjustContent(true);
         mTabSegment.addTab(new QMUITabSegment.Tab("cike"));
         mTabSegment.addTab(new QMUITabSegment.Tab("guanzhu"));
         mTabSegment.setupWithViewPager(mContentViewPager, false);

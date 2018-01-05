@@ -1,4 +1,4 @@
-package wuzhi.fladimir.com.wuzhi;
+package wuzhi.fladimir.com.wuzhi.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,12 +15,14 @@ import android.widget.Toast;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import wuzhi.fladimir.com.wuzhi.R;
 import wuzhi.fladimir.com.wuzhi.model.entity.Now;
 import wuzhi.fladimir.com.wuzhi.util.Jsouper;
 import wuzhi.fladimir.com.wuzhi.util.Logger;
 
 /**
  * Created by Sc_Ji on 2018-01-04.
+ * 日记
  */
 
 public class NovelActivity extends AppCompatActivity {
@@ -34,10 +36,8 @@ public class NovelActivity extends AppCompatActivity {
         setContentView(R.layout.activity_novel);
         mContext = NovelActivity.this;
         id = getIntent().getStringExtra("id");
-        Logger.e("UserId-->" + id);
         getHtmls();
     }
-
 
     /**
      * 获取Html数据
@@ -72,6 +72,9 @@ public class NovelActivity extends AppCompatActivity {
         webview.loadUrl("https://wuzhi.me/u/" + id);
     }
 
+    /**
+     * JavaScript
+     */
     public final class InJavaScriptLocalObj {
         @JavascriptInterface
         public void getSource(String html) {
@@ -105,6 +108,13 @@ public class NovelActivity extends AppCompatActivity {
         startActivityForResult(loginInt, 1);
     }
 
+    /**
+     * 登陆回调
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -114,6 +124,11 @@ public class NovelActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 显示
+     *
+     * @param now
+     */
     private void setUi(Now now) {
         Logger.e("Id-->" + now.getUserId());
         Logger.e("Img-->" + now.getUserImg());
@@ -125,4 +140,6 @@ public class NovelActivity extends AppCompatActivity {
             Logger.e("novels-->time = " + novels.getNovelTime() + "\ncontent = " + novels.getNovelContent());
         }
     }
+
+
 }

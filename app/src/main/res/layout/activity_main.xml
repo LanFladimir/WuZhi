@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="wuzhi.fladimir.com.wuzhi.MainActivity">
+    tools:context="wuzhi.fladimir.com.wuzhi.ui.activity.MainActivity">
 
     <com.qmuiteam.qmui.widget.QMUITopBar
         android:id="@+id/main_topbar"
