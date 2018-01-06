@@ -15,7 +15,7 @@ import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import java.util.ArrayList;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
-import wuzhi.fladimir.com.wuzhi.ui.activity.NovelActivity;
+import wuzhi.fladimir.com.wuzhi.ui.activity.DiaryActivity;
 import wuzhi.fladimir.com.wuzhi.R;
 import wuzhi.fladimir.com.wuzhi.model.entity.Now;
 
@@ -58,7 +58,7 @@ public class NowAdapter extends RecyclerView.Adapter<NowAdapter.nowHolder> {
         holder.item_now_bg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, NovelActivity.class);
+                Intent intent = new Intent(mContext, DiaryActivity.class);
                 intent.putExtra("id", item.getUserId());
                 mContext.startActivity(intent);
             }

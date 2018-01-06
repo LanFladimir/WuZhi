@@ -1,19 +1,22 @@
 package wuzhi.fladimir.com.wuzhi.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 import wuzhi.fladimir.com.wuzhi.R;
 import wuzhi.fladimir.com.wuzhi.model.entity.Now;
@@ -25,16 +28,41 @@ import wuzhi.fladimir.com.wuzhi.util.Logger;
  * 日记
  */
 
-public class NovelActivity extends AppCompatActivity {
+public class DiaryActivity extends AppCompatActivity {
     String id;
     WebView webview;
     Context mContext;
+    LinearLayout diary_parent;
+    @SuppressLint("HandlerLeak")
+    Handler uiHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            Now now = msg.getData().getParcelable("now");
+            TextView textView = new TextView(mContext);
+            textView.setTextColor(ContextCompat.getColor(mContext,R.color.app_color_blue_2_pressed));
+            diary_parent.addView(textView);
+
+            textView.append("" + now.getUserId());
+            textView.append(now.getUserImg());
+            textView.append(now.getUserName());
+            textView.append(now.getUserSign());
+            textView.append(now.getDate());
+            textView.append(now.getFlowers());
+            for (Now.diary diary : now.getDiary()) {
+                Logger.e("diary-->time = " + diary.getDiaryTime() + "\ncontent = " + diary.getDiaryContent());
+                textView.append("time-->" + diary.getDiaryTime());
+                textView.append("content-->" + diary.getDiaryContent());
+            }
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_novel);
-        mContext = NovelActivity.this;
+        setContentView(R.layout.activity_diary);
+        mContext = DiaryActivity.this;
+        diary_parent = findViewById(R.id.diary_parent);
         id = getIntent().getStringExtra("id");
         getHtmls();
     }
@@ -43,7 +71,7 @@ public class NovelActivity extends AppCompatActivity {
      * 获取Html数据
      */
     private void getHtmls() {
-        webview = findViewById(R.id.novel_webview);
+        webview = findViewById(R.id.diary_webview);
         WebSettings settings = webview.getSettings();
         settings.setAllowFileAccess(true);
         settings.setJavaScriptEnabled(true);
@@ -78,7 +106,6 @@ public class NovelActivity extends AppCompatActivity {
     public final class InJavaScriptLocalObj {
         @JavascriptInterface
         public void getSource(String html) {
-            Document novel = Jsoup.parse(html);
             Now now = null;
             try {
                 now = Jsouper.getCompleteNovel_Pc(id, html);
@@ -95,7 +122,14 @@ public class NovelActivity extends AppCompatActivity {
                     showLoginActivity();
                 }
             }
-            setUi(now);
+
+            Message msg = new Message();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("now", now);
+            msg.setData(bundle);
+            msg.what = 0;
+            uiHandler.sendMessage(msg);
+            //setUi(now);
         }
     }
 
@@ -129,16 +163,13 @@ public class NovelActivity extends AppCompatActivity {
      *
      * @param now
      */
-    private void setUi(Now now) {
+    private void setUi(final Now now) {
         Logger.e("Id-->" + now.getUserId());
         Logger.e("Img-->" + now.getUserImg());
         Logger.e("Name-->" + now.getUserName());
         Logger.e("Sign-->" + now.getUserSign());
         Logger.e("Date-->" + now.getDate());
         Logger.e("Flowers-->" + now.getFlowers());
-        for (Now.novels novels : now.getNovels()) {
-            Logger.e("novels-->time = " + novels.getNovelTime() + "\ncontent = " + novels.getNovelContent());
-        }
     }
 
 

@@ -19,7 +19,7 @@ import wuzhi.fladimir.com.wuzhi.util.Jsouper;
  * Now
  */
 
-public class FragmentNow extends BaseFragment {
+public class FragmentLast extends BaseFragment {
     private RecyclerView frg_now_recycler;
     private ArrayList<Now> mNow = new ArrayList<>();
     private NowAdapter mAdapter;
@@ -35,7 +35,7 @@ public class FragmentNow extends BaseFragment {
 
     @Override
     protected int setRootView() {
-        return R.layout.fragment_now;
+        return R.layout.fragment_last;
     }
 
     @Override

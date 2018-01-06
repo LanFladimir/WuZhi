@@ -54,7 +54,7 @@ public class Jsouper {
      */
     public static Now getCompleteNovel_Pc(String userId, String html) throws Exception {
         Now now = new Now();
-        ArrayList<Now.novels> novelList = new ArrayList<>();
+        ArrayList<Now.diary> novelList = new ArrayList<>();
         Document doc = Jsoup.parse(html);
         String sign;
         try {
@@ -70,9 +70,9 @@ public class Jsouper {
         String date = dateInfo.get(0).text();
         String flower = dateInfo.get(1).text();
         for (Element noteEach : content.getElementsByClass("note_each")) {
-            Now.novels novel = new Now.novels();
-            novel.setNovelContent(noteEach.getElementsByTag("div").get(0).text());
-            novel.setNovelTime(noteEach.getElementsByTag("div").get(1).text());
+            Now.diary novel = new Now.diary();
+            novel.setDiaryContent(noteEach.getElementsByTag("div").get(0).text());
+            novel.setDiaryTime(noteEach.getElementsByTag("div").get(1).text());
             novelList.add(novel);
         }
 
@@ -81,7 +81,7 @@ public class Jsouper {
         now.setUserImg(img);
         now.setDate(date);
         now.setFlowers(flower);
-        now.setNovels(novelList);
+        now.setDiary(novelList);
         now.setUserSign(sign);
         return now;
     }
@@ -95,7 +95,7 @@ public class Jsouper {
      */
     public static Now getCompleteNovel_Android(String userId, String html) throws Exception {
         Now now = new Now();
-        ArrayList<Now.novels> novelList = new ArrayList<>();
+        ArrayList<Now.diary> novelList = new ArrayList<>();
         Document doc = Jsoup.parse(html);
 
         String userName = doc.getElementsByClass("img_shadow").get(0)
@@ -109,15 +109,15 @@ public class Jsouper {
                 .getElementsByTag("span").get(1).text();
         Elements novels = doc.getElementsByClass("note_each");
         for (Element each : novels) {
-            Now.novels novel = new Now.novels();
-            novel.setNovelTime(each.getElementsByClass("note_time").get(0).text());
-            novel.setNovelContent(each.getElementsByClass("note_content").get(0).text());
+            Now.diary novel = new Now.diary();
+            novel.setDiaryTime(each.getElementsByClass("note_time").get(0).text());
+            novel.setDiaryContent(each.getElementsByClass("note_content").get(0).text());
             novelList.add(novel);
         }
         now.setUserName(userName);
         now.setDate(date);
         now.setFlowers(flower);
-        now.setNovels(novelList);
+        now.setDiary(novelList);
         now.setUserId(userId);
         now.setUserImg(userImg);
         now.setUserSign(userSign);

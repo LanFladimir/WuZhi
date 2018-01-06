@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 import wuzhi.fladimir.com.wuzhi.model.adapter.PageAdapter;
 import wuzhi.fladimir.com.wuzhi.R;
-import wuzhi.fladimir.com.wuzhi.ui.fragment.FragmentNow;
+import wuzhi.fladimir.com.wuzhi.ui.fragment.FragmentLast;
 import wuzhi.fladimir.com.wuzhi.ui.fragment.FragmentFollow;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         mTabSegment = findViewById(R.id.main_segment);
         mContentViewPager = findViewById(R.id.main_viewpager);
 
-        mFragments.add(new FragmentNow());
+        mFragments.add(new FragmentLast());
         mFragments.add(new FragmentFollow());
         mPagerAdapter = new PageAdapter(getSupportFragmentManager(), mFragments);
 

@@ -1,5 +1,8 @@
 package wuzhi.fladimir.com.wuzhi.model.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
@@ -7,21 +10,21 @@ import java.util.ArrayList;
  * 用户日记
  */
 
-public class Now {
+public class Now implements Parcelable {
     private String userId;
     private String userName;
     private String userImg;
     private String userSign;
     private String date;
     private String flowers;
-    private ArrayList<novels> novels;
+    private ArrayList<diary> diary;
 
-    public ArrayList<Now.novels> getNovels() {
-        return novels;
+    public ArrayList<diary> getDiary() {
+        return diary;
     }
 
-    public void setNovels(ArrayList<Now.novels> novels) {
-        this.novels = novels;
+    public void setDiary(ArrayList<diary> diary) {
+        this.diary = diary;
     }
 
     public String getUserId() {
@@ -72,24 +75,66 @@ public class Now {
         this.flowers = flowers;
     }
 
-    public static class novels {
-        String novelTime;
-        String novelContent;
+    public static class diary {
+        String diaryTime;
+        String diaryContent;
 
-        public String getNovelTime() {
-            return novelTime;
+        public String getDiaryTime() {
+            return diaryTime;
         }
 
-        public void setNovelTime(String novelTime) {
-            this.novelTime = novelTime;
+        public void setDiaryTime(String diaryTime) {
+            this.diaryTime = diaryTime;
         }
 
-        public String getNovelContent() {
-            return novelContent;
+        public String getDiaryContent() {
+            return diaryContent;
         }
 
-        public void setNovelContent(String novelContent) {
-            this.novelContent = novelContent;
+        public void setDiaryContent(String diaryContent) {
+            this.diaryContent = diaryContent;
         }
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.userId);
+        dest.writeString(this.userName);
+        dest.writeString(this.userImg);
+        dest.writeString(this.userSign);
+        dest.writeString(this.date);
+        dest.writeString(this.flowers);
+        dest.writeList(this.diary);
+    }
+
+    public Now() {
+    }
+
+    protected Now(Parcel in) {
+        this.userId = in.readString();
+        this.userName = in.readString();
+        this.userImg = in.readString();
+        this.userSign = in.readString();
+        this.date = in.readString();
+        this.flowers = in.readString();
+        this.diary = new ArrayList<Now.diary>();
+        in.readList(this.diary, Now.diary.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<Now> CREATOR = new Parcelable.Creator<Now>() {
+        @Override
+        public Now createFromParcel(Parcel source) {
+            return new Now(source);
+        }
+
+        @Override
+        public Now[] newArray(int size) {
+            return new Now[size];
+        }
+    };
 }

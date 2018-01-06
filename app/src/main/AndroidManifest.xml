@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.LoginActivity" />
-        <activity android:name=".ui.activity.NovelActivity" />
+        <activity android:name=".ui.activity.DiaryActivity" />
     </application>
 
 </manifest>
