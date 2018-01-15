@@ -3,6 +3,7 @@ package wuzhi.fladimir.com.wuzhi.ui.fragment;
 import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -10,7 +11,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import wuzhi.fladimir.com.wuzhi.R;
-import wuzhi.fladimir.com.wuzhi.model.adapter.NowAdapter;
+import wuzhi.fladimir.com.wuzhi.model.adapter.LastAdapter;
 import wuzhi.fladimir.com.wuzhi.model.entity.Now;
 import wuzhi.fladimir.com.wuzhi.util.Jsouper;
 
@@ -22,7 +23,7 @@ import wuzhi.fladimir.com.wuzhi.util.Jsouper;
 public class FragmentLast extends BaseFragment {
     private RecyclerView frg_now_recycler;
     private ArrayList<Now> mNow = new ArrayList<>();
-    private NowAdapter mAdapter;
+    private LastAdapter mAdapter;
     @SuppressLint("HandlerLeak")
     Handler mHandler = new Handler() {
         @Override
@@ -45,8 +46,8 @@ public class FragmentLast extends BaseFragment {
 
     @Override
     protected void initData() {
-        mAdapter = new NowAdapter(mNow, mContext);
-        frg_now_recycler.setLayoutManager(new LinearLayoutManager(mContext));
+        mAdapter = new LastAdapter(mNow, mContext);
+        frg_now_recycler.setLayoutManager(new GridLayoutManager(mContext,3));
         frg_now_recycler.setAdapter(mAdapter);
         new Thread(new Runnable() {
             @Override

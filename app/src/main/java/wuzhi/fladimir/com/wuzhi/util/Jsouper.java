@@ -16,7 +16,6 @@ import wuzhi.fladimir.com.wuzhi.model.entity.Now;
  */
 
 public class Jsouper {
-    private String AvAddress = "http://1024.2048xd.biz/pw/thread.php?fid=22&page=";
     private static String Url_LastDiary = "https://wuzhi.me/last";
     private static String Url_UserDiary = "https://wuzhi.me/u/";
 
@@ -24,7 +23,6 @@ public class Jsouper {
         ArrayList<Now> mNows = new ArrayList<>();
         try {
             Document doc = Jsoup.connect(Url_LastDiary).get();
-            Logger.e("getLastDiary", doc.text());
             Elements table = doc.getElementsByTag("table");
             Element tbody = table.get(0);
             Elements trs = tbody.getElementsByTag("tr");
@@ -52,7 +50,7 @@ public class Jsouper {
      *
      * @return 255148
      */
-    public static Now getCompleteNovel_Pc(String userId, String html) throws Exception {
+    public static Now getCompleteNovel_Pc(String html) throws Exception {
         Now now = new Now();
         ArrayList<Now.diary> novelList = new ArrayList<>();
         Document doc = Jsoup.parse(html);
@@ -76,7 +74,9 @@ public class Jsouper {
             novelList.add(novel);
         }
 
-        now.setUserId(userId);
+        String[] s = html.split("/");
+        Logger.e("url-->" + html + "\n" + "id-->" + s[s.length - 1]);
+        now.setUserId(s[s.length - 1]);
         now.setUserName(doc.title());
         now.setUserImg(img);
         now.setDate(date);
@@ -88,6 +88,7 @@ public class Jsouper {
 
     /**
      * 手机端
+     *
      * @param userId
      * @param html
      * @return

@@ -45,17 +45,6 @@ public class MySqliteHelper extends SQLiteOpenHelper {
                 null, null, null, null, null);
     }
 
-    /**
-     * @param id
-     * @param userName
-     */
-    public void InsertFollower(int id, String userName, String userSign) {
-        ContentValues values = new ContentValues();
-        values.put("id", id);
-        values.put("name", userName);
-        values.put("sign", userSign);
-        mSqlDataBase.insert(DbConstant.TABLE_NAME_Follow, null, values);
-    }
 
     /**
      * 清空数据表
@@ -77,7 +66,7 @@ public class MySqliteHelper extends SQLiteOpenHelper {
                 DbConstant.FOLLOW_NAME, DbConstant.FOLLOW_SIGN});
         while (cursor.moveToNext()) {
             Follow follow = new Follow();
-            follow.setUserId(cursor.getInt(cursor.getColumnIndex("id")));
+            follow.setUserId(cursor.getString(cursor.getColumnIndex("id")));
             follow.setUserName(cursor.getString(cursor.getColumnIndex("name")));
             follow.setUserSign(cursor.getString(cursor.getColumnIndex("sign")));
             mList.add(follow);
@@ -87,4 +76,46 @@ public class MySqliteHelper extends SQLiteOpenHelper {
         return mList;
     }
 
+    /**
+     * 是否正在关注
+     *
+     * @param userId 用户id
+     */
+    public boolean isFlowing(String userId) {
+        Cursor cursor = mSqlDataBase.query(DbConstant.TABLE_NAME_Follow,
+                new String[]{DbConstant.FOLLOW_ID},
+                "id = ? ", new String[]{userId},
+                null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            cursor.close();
+            return true;
+        } else {
+            cursor.close();
+            return false;
+        }
+    }
+
+    /**
+     * 新增关注
+     *
+     * @param id
+     * @param userName
+     */
+    public void addFollower(String id, String userName, String userSign) {
+        ContentValues values = new ContentValues();
+        values.put("id", id);
+        values.put("name", userName);
+        values.put("sign", userSign);
+        mSqlDataBase.insert(DbConstant.TABLE_NAME_Follow, null, values);
+    }
+
+    /**
+     * 取关
+     * @param userId
+     */
+    public void removeFollower(String userId) {
+        mSqlDataBase.delete(DbConstant.TABLE_NAME_Follow,
+                DbConstant.FOLLOW_ID + " = ",
+                new String[]{userId});
+    }
 }

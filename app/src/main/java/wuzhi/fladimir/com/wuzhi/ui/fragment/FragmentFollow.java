@@ -1,9 +1,8 @@
 package wuzhi.fladimir.com.wuzhi.ui.fragment;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
-import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
 
 import java.util.ArrayList;
 
@@ -12,7 +11,6 @@ import wuzhi.fladimir.com.wuzhi.model.adapter.FollowAdapter;
 import wuzhi.fladimir.com.wuzhi.model.database.MySqliteHelper;
 import wuzhi.fladimir.com.wuzhi.model.database.SqliteManager;
 import wuzhi.fladimir.com.wuzhi.model.entity.Follow;
-import wuzhi.fladimir.com.wuzhi.util.Logger;
 
 /**
  * Created by Sc_Ji on 2018-01-02.
@@ -21,7 +19,7 @@ import wuzhi.fladimir.com.wuzhi.util.Logger;
 
 public class FragmentFollow extends BaseFragment {
     private RecyclerView frg_follow_recycler;
-    private QMUIPullRefreshLayout frg_follow_refresh;
+    private SwipeRefreshLayout frg_follow_refresh;
     private ArrayList<Follow> mFollower = new ArrayList<>();
     private MySqliteHelper mySqliteHelper;
     private FollowAdapter mAdapter;
@@ -35,17 +33,8 @@ public class FragmentFollow extends BaseFragment {
     protected void initView() {
         frg_follow_recycler = mRootView.findViewById(R.id.frg_follow_recycler);
         frg_follow_refresh = mRootView.findViewById(R.id.frg_follow_refresh);
-        frg_follow_refresh.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {
-            @Override
-            public void onMoveTarget(int offset) {
-
-            }
-
-            @Override
-            public void onMoveRefreshView(int offset) {
-
-            }
-
+        frg_follow_refresh.setRefreshing(true);
+        frg_follow_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 
@@ -57,13 +46,10 @@ public class FragmentFollow extends BaseFragment {
     protected void initData() {
         mySqliteHelper = SqliteManager.getIntance(mContext);
         mFollower = mySqliteHelper.getFollowList();
-        for (Follow follow : mFollower) {
-            Logger.e("Id=" + follow.getUserId() + "Name=" + follow.getUserName()
-                    + "Sign=" + follow.getUserSign());
-        }
 
         mAdapter = new FollowAdapter(mFollower);
         frg_follow_recycler.setLayoutManager(new LinearLayoutManager(mContext));
         frg_follow_recycler.setAdapter(mAdapter);
+        frg_follow_refresh.setRefreshing(false);
     }
 }

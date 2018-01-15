@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 
 import java.util.ArrayList;
 
@@ -39,7 +38,7 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.followHold
         holder.userName.setText(follower.getUserName());
         holder.userSign.setText(follower.getUserSign());
         holder.userImg.setImageResource(R.mipmap.ic_favicon);
-        holder.userImg.setBorderWidth(0);
+        //holder.userImg.setBorderWidth(0);
 
     }
 
@@ -49,7 +48,7 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.followHold
     }
 
     class followHolder extends RecyclerView.ViewHolder {
-        QMUIRadiusImageView userImg;
+       ImageView userImg;
         TextView userName;
         TextView userSign;
 

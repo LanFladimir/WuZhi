@@ -8,7 +8,7 @@ package wuzhi.fladimir.com.wuzhi.model.entity;
 public class Follow {
     private String userName;
     private String userSign;
-    private int userId;
+    private String userId;
 
     public String getUserName() {
         return userName;
@@ -18,11 +18,11 @@ public class Follow {
         this.userName = userName;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

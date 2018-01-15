@@ -7,12 +7,12 @@
     android:orientation="vertical"
     tools:context="wuzhi.fladimir.com.wuzhi.ui.activity.MainActivity">
 
-    <com.qmuiteam.qmui.widget.QMUITopBar
+    <android.support.v7.widget.Toolbar
         android:id="@+id/main_topbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/qmui_topbar_height" />
+        android:layout_height="?attr/actionBarSize" />
 
-    <com.qmuiteam.qmui.widget.QMUITabSegment
+    <android.support.design.widget.TabLayout
         android:id="@+id/main_segment"
         android:layout_width="match_parent"
         android:layout_height="40dp" />
@@ -22,6 +22,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/qmui_config_color_white" />
+        android:background="@color/tab_panel_bg" />
 
 </LinearLayout>

@@ -15,7 +15,7 @@ public class DbConstant {
     public static final String FOLLOW_SIGN = "sign";
     public static final String CREAT_TABLE_FOLLOW =
             "create table if not exists " + DbConstant.TABLE_NAME_Follow + "(" +
-                    DbConstant.FOLLOW_ID + " integer primary key ," +
+                    DbConstant.FOLLOW_ID + " varchar(20) primary key ," +
                     DbConstant.FOLLOW_SIGN + " varchar(20) ," +
                     DbConstant.FOLLOW_NAME + " varchar(20))";
 }

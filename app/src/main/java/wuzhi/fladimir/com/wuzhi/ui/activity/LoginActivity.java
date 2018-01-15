@@ -2,8 +2,10 @@ package wuzhi.fladimir.com.wuzhi.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -11,8 +13,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 
 import wuzhi.fladimir.com.wuzhi.R;
 
@@ -62,16 +62,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void jump(View view) {
-        new QMUIDialog.MessageDialogBuilder(mContext)
+        AlertDialog dialog = new AlertDialog.Builder(mContext)
                 .setMessage("是否登陆完成?")
-                .addAction("已登陆", new QMUIDialogAction.ActionListener() {
+                .setPositiveButton("已登陆", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(QMUIDialog dialog, int index) {
+                    public void onClick(DialogInterface dialogInterface, int i) {
                         setResult(RESULT_OK);
                         finish();
                     }
-                })
-                .create().show();
+                }).create();
+        dialog.show();
     }
 
 }

@@ -10,14 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 
 import java.util.ArrayList;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
-import wuzhi.fladimir.com.wuzhi.ui.activity.DiaryActivity;
 import wuzhi.fladimir.com.wuzhi.R;
 import wuzhi.fladimir.com.wuzhi.model.entity.Now;
+import wuzhi.fladimir.com.wuzhi.ui.activity.DiaryActivity;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
@@ -26,11 +25,11 @@ import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
  * now adapter
  */
 
-public class NowAdapter extends RecyclerView.Adapter<NowAdapter.nowHolder> {
+public class LastAdapter extends RecyclerView.Adapter<LastAdapter.nowHolder> {
     private ArrayList<Now> mNows = new ArrayList<>();
     private Context mContext;
 
-    public NowAdapter(ArrayList<Now> mNows, Context mContext) {
+    public LastAdapter(ArrayList<Now> mNows, Context mContext) {
         this.mNows = mNows;
         this.mContext = mContext;
     }
@@ -60,6 +59,8 @@ public class NowAdapter extends RecyclerView.Adapter<NowAdapter.nowHolder> {
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, DiaryActivity.class);
                 intent.putExtra("id", item.getUserId());
+                intent.putExtra("name",
+                        item.getUserName());
                 mContext.startActivity(intent);
             }
         });
@@ -72,7 +73,7 @@ public class NowAdapter extends RecyclerView.Adapter<NowAdapter.nowHolder> {
 
     class nowHolder extends RecyclerView.ViewHolder {
         ImageView item_now_bg;
-        QMUIRadiusImageView item_now_img;
+        ImageView item_now_img;
         TextView item_now_name;
         TextView item_now_sign;
         TextView item_now_novel;
