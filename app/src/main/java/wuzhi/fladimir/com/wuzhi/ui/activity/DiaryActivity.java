@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,6 +33,7 @@ import wuzhi.fladimir.com.wuzhi.model.database.SqliteManager;
 import wuzhi.fladimir.com.wuzhi.model.entity.Now;
 import wuzhi.fladimir.com.wuzhi.util.Jsouper;
 import wuzhi.fladimir.com.wuzhi.util.Logger;
+import wuzhi.fladimir.com.wuzhi.util.ShareHelper;
 import wuzhi.fladimir.com.wuzhi.util.ThreadUtil;
 
 /**
@@ -39,7 +41,7 @@ import wuzhi.fladimir.com.wuzhi.util.ThreadUtil;
  * 日记
  */
 
-public class DiaryActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
+public class DiaryActivity extends AppCompatActivity {
     private String userId;
     private String userName;
     private WebView webview;
@@ -73,17 +75,6 @@ public class DiaryActivity extends AppCompatActivity implements Toolbar.OnMenuIt
         //getFavInfo(userId);
     }
 
-    /**
-     * @param userId
-     */
-    private void getFavInfo(String userId) {
-        mSqlHelper = SqliteManager.getIntance(mContext);
-        following = mSqlHelper.isFlowing(userId);
-        Logger.e("ToolBar Menu 数量 = " + diary_tool.getMenu().size());
-        /*if (following)
-            diary_tool.getMenu().getItem(0).setIcon(R.drawable.ic_tool_favo);
-        else diary_tool.getMenu().getItem(0).setIcon(R.drawable.ic_tool_unfavo);*/
-    }
 
     /**
      * Tool 设置
@@ -98,7 +89,6 @@ public class DiaryActivity extends AppCompatActivity implements Toolbar.OnMenuIt
         diary_Sign = findViewById(R.id.diary_Sign);
 
         //tool
-        setSupportActionBar(diary_tool);
         diary_tool.setNavigationIcon(R.drawable.ic_tool_back);
         diary_tool.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,19 +98,34 @@ public class DiaryActivity extends AppCompatActivity implements Toolbar.OnMenuIt
         });
         diary_tool.setBackgroundColor(ContextCompat.getColor(mContext, R.color.app_color_blue));
         diary_tool.setTitle(userName);
-        diary_tool.setTitle("WTF??");
+        diary_tool.inflateMenu(R.menu.diarymenu);
         diary_tool.setTitleTextColor(ContextCompat.getColor(mContext, R.color.white));
-        diary_tool.setOnMenuItemClickListener(this);
+        diary_tool.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (following) {
+                    item.setIcon(R.drawable.ic_tool_unfavo);
+                    following = false;
+                    mSqlHelper.removeFollower(userId);
+                } else {
+                    item.setIcon(R.drawable.ic_tool_favo);
+                    following = true;
+                    mSqlHelper.addFollower(userId, userName, now.getUserSign());
+                }
+                ShareHelper.setBoolean(mContext, ShareHelper.FOLLOW, true);
+                return false;
+            }
+        });
         //recycler
         diary_recycler.setLayoutManager(new LinearLayoutManager(mContext));
         Now.diary d = new Now.diary();
         d.setDiaryTime("00:01");
-        d.setDiaryContent("我如果爱你—— 绝不像攀援的凌霄花, 借你的高枝炫耀自己: 我如果爱你—— 绝不学痴情的鸟儿, 为绿荫重复单调的歌曲");
+        d.setDiaryContent("我如果爱你,绝不像攀援的凌霄花, 借你的高枝炫耀自己;我如果爱你,绝不学痴情的鸟儿, 为绿荫重复单调的歌曲");
         mDiaryList.add(d);
         mDiaryAdapter = new DiaryAdapter(mDiaryList);
         diary_recycler.setAdapter(mDiaryAdapter);
 
-        getFavInfo(userId);
+        setFavIcon(userId);
     }
 
     /**
@@ -156,19 +161,6 @@ public class DiaryActivity extends AppCompatActivity implements Toolbar.OnMenuIt
         webview.loadUrl("https://wuzhi.me/u/" + userId);
     }
 
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        if (following) {
-            item.setIcon(R.drawable.ic_tool_unfavo);
-            following = false;
-            mSqlHelper.removeFollower(userId);
-        } else {
-            item.setIcon(R.drawable.ic_tool_favo);
-            following = true;
-            mSqlHelper.addFollower(userId, userName, now.getUserSign());
-        }
-        return false;
-    }
 
     /**
      * JavaScript
@@ -264,14 +256,16 @@ public class DiaryActivity extends AppCompatActivity implements Toolbar.OnMenuIt
     }
 
     /**
-     * 绑定Menu
+     * 显示图标
      *
-     * @param menu
-     * @return
+     * @param userId
      */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.diarymenu, menu);
-        return super.onCreateOptionsMenu(menu);
+    private void setFavIcon(String userId) {
+        mSqlHelper = SqliteManager.getIntance(mContext);
+        following = mSqlHelper.isFlowing(userId);
+        Logger.e("ToolBar Menu 数量 = " + diary_tool.getMenu().size());
+        if (following)
+            diary_tool.getMenu().findItem(R.id.menu_diary_fav).setIcon(R.drawable.ic_tool_favo);
+        else diary_tool.getMenu().findItem(R.id.menu_diary_fav).setIcon(R.drawable.ic_tool_unfavo);
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/diary_parent"
     android:layout_width="match_parent"
@@ -15,7 +16,9 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/diary_tool"
         android:layout_width="match_parent"
-        android:layout_height="46dp" />
+        android:layout_height="46dp"
+        app:title="WuZhi"
+        app:titleTextColor="@color/white" />
 
 
     <LinearLayout

@@ -62,7 +62,7 @@ public class MySqliteHelper extends SQLiteOpenHelper {
      */
     public ArrayList<Follow> getFollowList() {
         ArrayList<Follow> mList = new ArrayList<>();
-        Cursor cursor = query(DbConstant.TABLE_NAME_Follow, new String[]{DbConstant.FOLLOW_ID,
+        Cursor cursor = query(DbConstant.TABLE_NAME_FOLLOW, new String[]{DbConstant.FOLLOW_ID,
                 DbConstant.FOLLOW_NAME, DbConstant.FOLLOW_SIGN});
         while (cursor.moveToNext()) {
             Follow follow = new Follow();
@@ -82,7 +82,7 @@ public class MySqliteHelper extends SQLiteOpenHelper {
      * @param userId 用户id
      */
     public boolean isFlowing(String userId) {
-        Cursor cursor = mSqlDataBase.query(DbConstant.TABLE_NAME_Follow,
+        Cursor cursor = mSqlDataBase.query(DbConstant.TABLE_NAME_FOLLOW,
                 new String[]{DbConstant.FOLLOW_ID},
                 "id = ? ", new String[]{userId},
                 null, null, null);
@@ -103,18 +103,19 @@ public class MySqliteHelper extends SQLiteOpenHelper {
      */
     public void addFollower(String id, String userName, String userSign) {
         ContentValues values = new ContentValues();
-        values.put("id", id);
-        values.put("name", userName);
-        values.put("sign", userSign);
-        mSqlDataBase.insert(DbConstant.TABLE_NAME_Follow, null, values);
+        values.put(DbConstant.FOLLOW_ID, id);
+        values.put(DbConstant.FOLLOW_NAME, userName);
+        values.put(DbConstant.FOLLOW_SIGN, userSign);
+        mSqlDataBase.insert(DbConstant.TABLE_NAME_FOLLOW, null, values);
     }
 
     /**
      * 取关
+     *
      * @param userId
      */
     public void removeFollower(String userId) {
-        mSqlDataBase.delete(DbConstant.TABLE_NAME_Follow,
+        mSqlDataBase.delete(DbConstant.TABLE_NAME_FOLLOW,
                 DbConstant.FOLLOW_ID + " = ",
                 new String[]{userId});
     }

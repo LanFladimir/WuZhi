@@ -11,6 +11,7 @@ import wuzhi.fladimir.com.wuzhi.model.adapter.FollowAdapter;
 import wuzhi.fladimir.com.wuzhi.model.database.MySqliteHelper;
 import wuzhi.fladimir.com.wuzhi.model.database.SqliteManager;
 import wuzhi.fladimir.com.wuzhi.model.entity.Follow;
+import wuzhi.fladimir.com.wuzhi.util.ShareHelper;
 
 /**
  * Created by Sc_Ji on 2018-01-02.
@@ -37,7 +38,7 @@ public class FragmentFollow extends BaseFragment {
         frg_follow_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
+                refreshFollowList();
             }
         });
     }
@@ -51,5 +52,22 @@ public class FragmentFollow extends BaseFragment {
         frg_follow_recycler.setLayoutManager(new LinearLayoutManager(mContext));
         frg_follow_recycler.setAdapter(mAdapter);
         frg_follow_refresh.setRefreshing(false);
+    }
+
+    /**
+     * 刷新
+     */
+    private void refreshFollowList() {
+        frg_follow_refresh.setRefreshing(true);
+        mFollower = mySqliteHelper.getFollowList();
+        mAdapter.notify(mFollower);
+        frg_follow_refresh.setRefreshing(false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (ShareHelper.getBoolean(getActivity(), ShareHelper.FOLLOW))
+            refreshFollowList();
     }
 }

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import wuzhi.fladimir.com.wuzhi.R;
 import wuzhi.fladimir.com.wuzhi.model.entity.Follow;
+import wuzhi.fladimir.com.wuzhi.model.entity.Now;
 
 /**
  * Created by Sc_Ji on 2018-01-03.
@@ -26,6 +27,10 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.followHold
         this.mFollowList = mFollowList;
     }
 
+    public void notify(ArrayList<Follow> follows) {
+        mFollowList = follows;
+        notifyDataSetChanged();
+    }
     @Override
     public followHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new followHolder(LayoutInflater.from(parent.getContext()).inflate(
