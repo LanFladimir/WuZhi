@@ -2,7 +2,6 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/app_color_blue</item>
         <item name="colorAccent">@color/app_color_blue_disabled</item>
         <item name="colorPrimaryDark">@color/app_color_blue_pressed</item>
