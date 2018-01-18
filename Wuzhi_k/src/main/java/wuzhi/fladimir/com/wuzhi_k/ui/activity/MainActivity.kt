@@ -1,7 +1,8 @@
-package wuzhi.fladimir.com.wuzhi_k
+package wuzhi.fladimir.com.wuzhi_k.ui.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import wuzhi.fladimir.com.wuzhi_k.R
 
 class MainActivity : AppCompatActivity() {
 
