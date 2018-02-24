@@ -50,6 +50,7 @@ public class LastAdapter extends RecyclerView.Adapter<LastAdapter.nowHolder> {
         final Now item = mNows.get(position);
 
         holder.item_now_name.setText(item.getUserName());
+        holder.item_now_sign.setText(item.getUserSign());
         Glide.with(mContext).load(item.getUserImg()).into(holder.item_now_img);
         Glide.with(mContext).load(item.getUserImg())
                 .apply(bitmapTransform(new BlurTransformation(25)))

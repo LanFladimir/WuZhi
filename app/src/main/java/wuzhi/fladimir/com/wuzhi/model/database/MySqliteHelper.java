@@ -63,12 +63,13 @@ public class MySqliteHelper extends SQLiteOpenHelper {
     public ArrayList<Follow> getFollowList() {
         ArrayList<Follow> mList = new ArrayList<>();
         Cursor cursor = query(DbConstant.TABLE_NAME_FOLLOW, new String[]{DbConstant.FOLLOW_ID,
-                DbConstant.FOLLOW_NAME, DbConstant.FOLLOW_SIGN});
+                DbConstant.FOLLOW_NAME, DbConstant.FOLLOW_SIGN,DbConstant.FOLLOW_IMG});
         while (cursor.moveToNext()) {
             Follow follow = new Follow();
-            follow.setUserId(cursor.getString(cursor.getColumnIndex("id")));
-            follow.setUserName(cursor.getString(cursor.getColumnIndex("name")));
-            follow.setUserSign(cursor.getString(cursor.getColumnIndex("sign")));
+            follow.setUserId(cursor.getString(cursor.getColumnIndex(DbConstant.FOLLOW_ID)));
+            follow.setUserName(cursor.getString(cursor.getColumnIndex(DbConstant.FOLLOW_NAME)));
+            follow.setUserSign(cursor.getString(cursor.getColumnIndex(DbConstant.FOLLOW_SIGN)));
+            follow.setUserImg(cursor.getString(cursor.getColumnIndex(DbConstant.FOLLOW_IMG)));
             mList.add(follow);
         }
         cursor.close();
@@ -101,11 +102,12 @@ public class MySqliteHelper extends SQLiteOpenHelper {
      * @param id
      * @param userName
      */
-    public void addFollower(String id, String userName, String userSign) {
+    public void addFollower(String id, String userName, String userSign, String userImg) {
         ContentValues values = new ContentValues();
         values.put(DbConstant.FOLLOW_ID, id);
         values.put(DbConstant.FOLLOW_NAME, userName);
         values.put(DbConstant.FOLLOW_SIGN, userSign);
+        values.put(DbConstant.FOLLOW_IMG, userImg);
         mSqlDataBase.insert(DbConstant.TABLE_NAME_FOLLOW, null, values);
     }
 
@@ -115,8 +117,9 @@ public class MySqliteHelper extends SQLiteOpenHelper {
      * @param userId
      */
     public void removeFollower(String userId) {
-        mSqlDataBase.delete(DbConstant.TABLE_NAME_FOLLOW,
-                DbConstant.FOLLOW_ID + " = ",
+        mSqlDataBase.delete(
+                DbConstant.TABLE_NAME_FOLLOW,
+                DbConstant.FOLLOW_ID + " = ?",
                 new String[]{userId});
     }
 }

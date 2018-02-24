@@ -110,7 +110,7 @@ public class DiaryActivity extends AppCompatActivity {
                 } else {
                     item.setIcon(R.drawable.ic_tool_favo);
                     following = true;
-                    mSqlHelper.addFollower(userId, userName, now.getUserSign());
+                    mSqlHelper.addFollower(userId, userName, now.getUserSign(), now.getUserImg());
                 }
                 ShareHelper.setBoolean(mContext, ShareHelper.FOLLOW, true);
                 return false;
@@ -118,10 +118,6 @@ public class DiaryActivity extends AppCompatActivity {
         });
         //recycler
         diary_recycler.setLayoutManager(new LinearLayoutManager(mContext));
-        Now.diary d = new Now.diary();
-        d.setDiaryTime("00:01");
-        d.setDiaryContent("我如果爱你,绝不像攀援的凌霄花, 借你的高枝炫耀自己;我如果爱你,绝不学痴情的鸟儿, 为绿荫重复单调的歌曲");
-        mDiaryList.add(d);
         mDiaryAdapter = new DiaryAdapter(mDiaryList);
         diary_recycler.setAdapter(mDiaryAdapter);
 

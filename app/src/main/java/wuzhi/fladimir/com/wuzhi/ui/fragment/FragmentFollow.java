@@ -62,6 +62,7 @@ public class FragmentFollow extends BaseFragment {
         mFollower = mySqliteHelper.getFollowList();
         mAdapter.notify(mFollower);
         frg_follow_refresh.setRefreshing(false);
+        ShareHelper.setBoolean(getActivity(), ShareHelper.FOLLOW, false);
     }
 
     @Override

@@ -3,6 +3,7 @@
     package="wuzhi.fladimir.com.wuzhi">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -20,6 +21,7 @@
         </activity>
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.DiaryActivity" />
+        <activity android:name=".ui.activity.SplashActivity"/>
     </application>
 
 </manifest>

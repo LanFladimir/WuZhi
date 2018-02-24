@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         mContext = MainActivity.this;
 
         mTopBar = findViewById(R.id.main_topbar);
-        mTopBar.setTitle("吾志");
+        //mTopBar.setTitle("吾志");
         mTopBar.setBackgroundColor(ContextCompat.getColor(mContext, R.color.app_color_blue));
         mTabLayout = findViewById(R.id.main_segment);
         mContentViewPager = findViewById(R.id.main_viewpager);

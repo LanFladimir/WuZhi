@@ -9,6 +9,7 @@ public class Follow {
     private String userName;
     private String userSign;
     private String userId;
+    private String userImg;
 
     public String getUserName() {
         return userName;
@@ -32,5 +33,13 @@ public class Follow {
 
     public void setUserSign(String userSign) {
         this.userSign = userSign;
+    }
+
+    public String getUserImg() {
+        return userImg;
+    }
+
+    public void setUserImg(String userImg) {
+        this.userImg = userImg;
     }
 }

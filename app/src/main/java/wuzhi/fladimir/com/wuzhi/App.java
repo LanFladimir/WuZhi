@@ -2,6 +2,9 @@ package wuzhi.fladimir.com.wuzhi;
 
 import android.app.Application;
 import android.os.Handler;
+import android.util.Log;
+
+import java.security.MessageDigest;
 
 import wuzhi.fladimir.com.wuzhi.util.Logger;
 
