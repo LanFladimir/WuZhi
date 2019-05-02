@@ -7,6 +7,14 @@
     tools:context="wuzhi.fladimir.com.wuzhi.ui.activity.SplashActivity"
     tools:layout_editor_absoluteY="25dp">
 
+
+    <WebView
+        android:id="@+id/hidden_webview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="150dp"

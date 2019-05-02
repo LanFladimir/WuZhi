@@ -26,13 +26,14 @@ public class FragmentLast extends BaseFragment {
     private RecyclerView frg_now_recycler;
     private ArrayList<Now> mNow = new ArrayList<>();
     private LastAdapter mAdapter;
+    private boolean notifying = false;
     @SuppressLint("HandlerLeak")
     Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+            notifying = false;
             mRefreshLayout.setRefreshing(false);
-            //Toast.makeText(mContext, "更新列表!", Toast.LENGTH_LONG).show();
             mAdapter.notify(mNow);
         }
     };
@@ -53,6 +54,11 @@ public class FragmentLast extends BaseFragment {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        if (notifying) {
+                            Toast.makeText(mContext, "Notifying!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        notifying = true;
                         mNow = Jsouper.getLastDiary();
                         mHandler.sendEmptyMessageDelayed(0, 1000 * 3);
                     }

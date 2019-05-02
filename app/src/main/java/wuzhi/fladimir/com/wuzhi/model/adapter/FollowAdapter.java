@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 import wuzhi.fladimir.com.wuzhi.R;
 import wuzhi.fladimir.com.wuzhi.model.entity.Follow;
-import wuzhi.fladimir.com.wuzhi.model.entity.Now;
 import wuzhi.fladimir.com.wuzhi.ui.activity.DiaryActivity;
 
 /**

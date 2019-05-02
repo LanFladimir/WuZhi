@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">吾志</string>
+    <string name="about">About</string>
+    <string name="logout">logout</string>
 </resources>

@@ -77,7 +77,6 @@ public class LastAdapter extends RecyclerView.Adapter<LastAdapter.nowHolder> {
         ImageView item_now_img;
         TextView item_now_name;
         TextView item_now_sign;
-        TextView item_now_novel;
 
         public nowHolder(View itemView) {
             super(itemView);
@@ -85,7 +84,6 @@ public class LastAdapter extends RecyclerView.Adapter<LastAdapter.nowHolder> {
             item_now_img = itemView.findViewById(R.id.item_now_img);
             item_now_name = itemView.findViewById(R.id.item_now_name);
             item_now_sign = itemView.findViewById(R.id.item_now_sign);
-            item_now_novel = itemView.findViewById(R.id.item_now_novel);
         }
     }
 }

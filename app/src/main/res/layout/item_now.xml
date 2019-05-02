@@ -1,70 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="120dp"
     android:orientation="vertical">
 
-
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/item_now_bg"
         android:layout_width="match_parent"
-        android:layout_height="66dp">
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_favicon" />
 
-        <ImageView
-            android:id="@+id/item_now_bg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@mipmap/ic_favicon"
-            android:scaleType="centerCrop"/>
+    <ImageView
+        android:id="@+id/item_now_img"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@mipmap/ic_launcher_round"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/item_now_img"
-            android:layout_width="46dp"
-            android:layout_height="46dp"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:layout_toStartOf="@id/item_now_mid"
-            android:src="@mipmap/ic_launcher_round"/>
-
-        <View
-            android:id="@+id/item_now_mid"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_centerHorizontal="true"/>
-
-        <TextView
-            android:id="@+id/item_now_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/item_now_img"
-            android:layout_toEndOf="@id/item_now_img"
-            tools:text="UserName"/>
-
-        <TextView
-            android:id="@+id/item_now_sign"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/item_now_name"
-            android:layout_marginTop="8dp"
-            android:layout_toEndOf="@id/item_now_img"
-            tools:text="UserSign"/>
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"
-        android:background="#eaeaea"/>
 
     <TextView
-        android:visibility="gone"
-        android:id="@+id/item_now_novel"
-        android:layout_width="match_parent"
+        android:id="@+id/item_now_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:textSize="14sp"
-        tools:text="中秋作本名小秦王，入腔即阳关曲\n暮云收尽溢清寒，银汉无声转玉盘。\n此生此夜不长好，明月明年何处看。"/>
-</LinearLayout>
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toRightOf="@id/item_now_img"
+        app:layout_constraintTop_toTopOf="@+id/item_now_img"
+        tools:text="UserName" />
+
+    <TextView
+        android:id="@+id/item_now_sign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toRightOf="@id/item_now_img"
+        app:layout_constraintTop_toBottomOf="@id/item_now_name"
+        tools:text="UserSign" />
+
+</android.support.constraint.ConstraintLayout>

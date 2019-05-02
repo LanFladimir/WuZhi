@@ -1,1 +1,2 @@
-include ':app', ':Wuzhi_k'
+include ':app'
+//, ':Wuzhi_k'
